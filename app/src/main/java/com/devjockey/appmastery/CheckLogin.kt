@@ -12,6 +12,8 @@ data class CheckLogin(val name:String,val password:String) {
    // validation
     fun validation():Boolean{
 
+
+
         return !(this.name.isEmpty()&&this.password.isEmpty())
 
 
