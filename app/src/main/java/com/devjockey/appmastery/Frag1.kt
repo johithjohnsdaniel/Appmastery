@@ -1,31 +1,29 @@
 package com.devjockey.appmastery
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
-import kotlinx.android.synthetic.main.fragment_frag1.*
-import org.json.JSONArray
-import org.json.JSONException
-import com.android.volley.VolleyError
 
-import org.json.JSONObject
+import kotlinx.android.synthetic.main.fragment_frag1.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.properties.Delegates
 
 
 class Frag1 : Fragment() {
 
+    private lateinit var catLogId: String
 
-    lateinit var dataMembers: ArrayList<DataMembers>
-    lateinit var myAdapter: RecyclerAdapter
-    lateinit var mRequestQueue: RequestQueue
+    //Test
+    var imageResponsesList: List<ResultImage> = ArrayList()
     lateinit var layoutManager: RecyclerView.LayoutManager
 
     override fun onCreateView(
@@ -37,38 +35,84 @@ class Frag1 : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = GridLayoutManager(context, 2);
         recycler_view.layoutManager = layoutManager
-        dataMembers = ArrayList();
-        mRequestQueue = Volley.newRequestQueue(context)
-        jsonParse()
+
+        //Testing
+        catLogId = "5d52cd3f8c31223a0ea27d98"
+        fragmentTransition()
+    }
+
+    //fragment transition
+    private fun fragmentTransition() {
+        val value = checkCatLogId()
+        if (value == 1) {
+
+            getData()
+
+        } else if (value == 2) {
+            //code to be implemented
+            Toast.makeText(context, "frag2", Toast.LENGTH_SHORT).show()
+        } else if (value == 3) {
+            //code to be implemented
+            Toast.makeText(context, "frag3", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "An error has occurred", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    //getData
+    private fun getData() {
+
+        //test id
+        val id = 213123;
+
+        //Testing
+        //     val call = ApiClientLogin.getLoginService().getImage(2131)
+        call.enqueue(object : Callback<List<ResultImage?>?> {
+            override fun onResponse(
+                call: Call<List<ResultImage?>?>,
+                response: Response<List<ResultImage?>?>,
+            ) {
+                if (response.isSuccessful) {
+
+                    val resultImage: List<ResultImage?>? = response.body();
+                    Log.e("context", "resposne" + resultImage.getImageresponse.getUrl())
+
+                } else {
+                    Log.e("context", "Server Down");
+                }
+            }
+
+            override fun onFailure(call: Call<List<ResultImage?>?>, t: Throwable) {
+                Log.e("context", "connect to internet");
+            }
+        })
 
 
     }
 
-    //Json Parse
-    private fun jsonParse() {
+    //loginId check
 
+    private fun checkCatLogId(): Int {
 
-        val url =
-            "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true"
-        val request = JsonObjectRequest(Request.Method.GET, url, null,
-            { response ->
-                try {
-                    val jsonArray = response.getJSONArray("hits")
-                    for (i in 0 until jsonArray.length()) {
-                        val hit = jsonArray.getJSONObject(i)
-                        val imageUrl = hit.getString("webformatURL")
-                        dataMembers.add(DataMembers(imageUrl))
-                    }
-                    myAdapter = RecyclerAdapter(context, dataMembers)
-                    recycler_view.adapter = myAdapter
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
-            }) { error -> error.printStackTrace() }
-        mRequestQueue.add(request)
+        return when (catLogId) {
+            "5d52cd3f8c31223a0ea27d98" -> {
+
+                1;
+
+            }
+            "5d52df458c31223a0ea27dbb" -> {
+                2;
+
+            }
+            else -> {
+                3
+            }
+        }
     }
 
 
