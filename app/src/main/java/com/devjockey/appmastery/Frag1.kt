@@ -48,12 +48,16 @@ class Frag1 : Fragment() {
             if (msg != null) {
                 catLogId = msg
                 fragmentTransition()
+
             }
-            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
         }
 
+//Recycler View
         val layoutManager = GridLayoutManager(context, 2);
         recycler_view.layoutManager = layoutManager
+
+        //Default Catlog ID
         catLogId = "5d52df0a8c31223a0ea27db1"
         fragmentTransition()
 
@@ -167,6 +171,7 @@ class Frag1 : Fragment() {
 
             }
         })
+
 
     }
 

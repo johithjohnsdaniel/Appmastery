@@ -37,8 +37,8 @@ public interface LoginService {
 //            "Authorization:token"
 //
 //    })
-//    @GET("/api/v1/apps/catalogues{id}")
-//    Call<ResultImage> getImage(@Path("id")String id);
+//    @GET("/api/v1/apps/catalogues?")
+//    Call<ResultImage> getImage(@Query("id") String id);
 
 
 
