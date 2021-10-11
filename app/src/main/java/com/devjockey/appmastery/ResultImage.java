@@ -1,16 +1,28 @@
 package com.devjockey.appmastery;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
 
 public class ResultImage {
 
-    public ArrayList<ImageResponse> imageResponses=new ArrayList<>();
+    @SerializedName("_embedded")
+    public Items _embedded;
 
-    public ArrayList<ImageResponse> getImageResponses() {
-        return imageResponses;
+    public ResultImage(Items _embedded) {
+        this._embedded = _embedded;
     }
 
-    public void setImageResponses(ArrayList<ImageResponse> imageResponses) {
-        this.imageResponses = imageResponses;
+    public Items get_embedded() {
+        return _embedded;
+    }
+
+    public void set_embedded(Items _embedded) {
+        this._embedded = _embedded;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "_embedded=" + _embedded +
+                '}';
     }
 }

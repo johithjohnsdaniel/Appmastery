@@ -8,28 +8,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClientLogin {
 
 
-
-    public static Retrofit getRetrofit(){
-        HttpLoggingInterceptor httpLoggingInterceptor=new HttpLoggingInterceptor();
+    public static Retrofit getRetrofit() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient okHttpClient =new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
 
-        Retrofit retrofit=new Retrofit.Builder().
+        Retrofit retrofit = new Retrofit.Builder().
                 addConverterFactory(GsonConverterFactory.create()).
                 baseUrl("https://ci-api.appmastery.co").
                 client(okHttpClient).
                 build();
 
-        return  retrofit;
+        return retrofit;
 
 
     }
 
-    public  static  LoginService getLoginService()
-    {
+    public static LoginService getLoginService() {
 
-        LoginService loginService =getRetrofit().create(LoginService.class);
+        LoginService loginService = getRetrofit().create(LoginService.class);
         return loginService;
 
 

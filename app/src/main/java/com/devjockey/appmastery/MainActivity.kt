@@ -12,8 +12,14 @@ import retrofit2.Response
 
 lateinit var binding: ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+
+        public lateinit var userToken: String
+
+    }
 
     private lateinit var username: String
 
@@ -24,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
         //btn Listener
         binding.btnLogin.setOnClickListener { onclickLogin() }
+
 
     }
 
@@ -34,8 +40,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun onclickLogin() {
 
-        username = binding.username.text.toString();
-        val password = binding.password.text.toString();
+        username = binding.username.text.toString()
+
+        //  val password = binding.password.text.toString()
 
         //Encrypting Password =()=>{}
         //To be Implemented
@@ -60,21 +67,17 @@ class MainActivity : AppCompatActivity() {
 
                 if (response.isSuccessful) {
 
-                    val resultLogin: ResultLogin? = response.body();
+                    val resultLogin: ResultLogin? = response.body()
+                    val user_token = resultLogin?.getResponse()?.getUser_token()
+                    if (user_token != null) {
+                        userToken = user_token
+                    }
 
-                    Log.e("MainActivity",
-                        "Response = " + resultLogin?.getResponse()?.getUser_token());
 
-                    val user_token = resultLogin?.getResponse()?.getUser_token();
-
-                    val intentRef = Intent(this@MainActivity, HomeActivity::class.java);
+                    val intentRef = Intent(this@MainActivity, HomeActivity::class.java)
                     //Passing userToken
-                    intentRef.putExtra("user_token", user_token);
+                    intentRef.putExtra("user_token", userToken)
                     startActivity(intentRef)
-
-                    Toast.makeText(this@MainActivity,
-                        "Login Success" + user_token,
-                        Toast.LENGTH_SHORT).show()
 
 
                 } else {

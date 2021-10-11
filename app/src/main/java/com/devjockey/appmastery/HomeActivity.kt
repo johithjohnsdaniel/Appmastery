@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.google.android.material.navigation.NavigationBarView
 
@@ -20,44 +22,57 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         nav_bar.setOnItemSelectedListener(this)
 
         //UserToken For Later Use
-        val userToken=intent.getStringExtra("user_token");
-        Toast.makeText(this,userToken,Toast.LENGTH_SHORT).show()
-
+        val userToken = intent.getStringExtra("user_token")
     }
-
 
 
     //nav listener
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-//        //Incomplete
-//        val fragRef1=Frag1();
-//        val fragRef2=Frag1();
-//        val fragRef3=Frag1();
+
+        val firstFragment = Frag1()
+        val secondFragment = Frag1()
+        val thirdFragment = Frag1()
+
+
 
         when (item.itemId) {
             R.id.nav1 -> {
+
+
                 supportFragmentManager.commit {
-                    replace(R.id.fragment_view, Frag1())
+
+                    replace(R.id.fragment_view, firstFragment)
                 }
-                return true
+                Toast.makeText(this, "frag 1", Toast.LENGTH_LONG).show()
             }
             R.id.nav2 -> {
                 supportFragmentManager.commit {
-                    replace(R.id.fragment_view, Frag1())
+                    val data = Bundle()
+                    data.putString("key", "5d52df458c31223a0ea27dbb")
+                    secondFragment.arguments = data
+                    replace(R.id.fragment_view, secondFragment)
                 }
-                return true
+                Toast.makeText(this, "frag 2", Toast.LENGTH_LONG).show()
+
             }
             R.id.nav3 -> {
                 supportFragmentManager.commit {
-                    replace(R.id.fragment_view, Frag1())
+
+                    val data = Bundle()
+                    data.putString("key", "5d52f12c8c31223a0ea27e29")
+                    thirdFragment.arguments = data
+                    replace(R.id.fragment_view, thirdFragment)
                 }
-                return true
+                Toast.makeText(this, "frag 3", Toast.LENGTH_LONG).show()
+
             }
             else -> {
-                return false
+                Toast.makeText(this, "error", Toast.LENGTH_LONG).show()
             }
         }
+
+        return true
     }
 
 
