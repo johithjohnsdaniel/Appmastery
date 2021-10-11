@@ -31,6 +31,18 @@ public interface LoginService {
     //Using token as default
 
 
+//    @Headers({
+//            "Accept: application/json",
+//            "CUSTOMERID: 5d52cd3f8c31223a0ea27d98",
+//            "Authorization:token"
+//
+//    })
+//    @GET("/api/v1/apps/catalogues{id}")
+//    Call<ResultImage> getImage(@Path("id")String id);
+
+
+
+    //test
     @Headers({
             "Accept: application/json",
             "CUSTOMERID: 5d52cd3f8c31223a0ea27d98",

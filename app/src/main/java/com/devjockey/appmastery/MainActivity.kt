@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.devjockey.appmastery.databinding.ActivityMainBinding
+import com.google.common.hash.HashCode
+import com.google.common.hash.HashFunction
+import com.google.common.hash.Hashing
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
-        public lateinit var userToken: String
+        lateinit var userToken: String
+        lateinit var ePassword: String
+        lateinit var password: String
+
 
     }
 
@@ -42,13 +48,25 @@ class MainActivity : AppCompatActivity() {
 
         username = binding.username.text.toString()
 
-        //  val password = binding.password.text.toString()
+        password = binding.password.text.toString()
 
-        //Encrypting Password =()=>{}
-        //To be Implemented
+        ePassword = encryptPass()
 
         //Log In Function
         loginCheck()
+
+    }
+
+    private fun encryptPass(): String {
+
+        val hashFunction: HashFunction = Hashing.sha256();
+        val hc: HashCode = hashFunction
+            .newHasher()
+            .putString(password, Charsets.UTF_8)
+            .hash();
+        val sha256: String = hc.toString()
+        return sha256
+
 
     }
 
@@ -56,10 +74,10 @@ class MainActivity : AppCompatActivity() {
 
         val loginRequest = LoginRequest(
             username,
-            "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
+            ePassword
         )
 
-        //Validation Function to be implemented
+        //Validation Function to be implemented =()=>
 
         val resultCall: Call<ResultLogin> = ApiClientLogin.getLoginService().loginIn(loginRequest)
         resultCall.enqueue(object : Callback<ResultLogin?> {
