@@ -25,4 +25,5 @@ public class ResultImage {
                 "_embedded=" + _embedded +
                 '}';
     }
+
 }

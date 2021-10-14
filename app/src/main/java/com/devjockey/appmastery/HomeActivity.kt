@@ -33,9 +33,9 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     }
 
     private fun setFragment() {
-        firstFragment = Fragment1.newInstance("5d52df0a8c31223a0ea27db1", "ada")
-        secondFragment = Fragment1.newInstance("5d52df458c31223a0ea27dbb", "ada")
-        thirdFragment = Fragment1.newInstance("5d52f12c8c31223a0ea27e29", "ada")
+        firstFragment = Fragment1.newInstance("5d52df0a8c31223a0ea27db1")
+        secondFragment = Fragment1.newInstance("5d52df458c31223a0ea27dbb")
+        thirdFragment = Fragment1.newInstance("5d52f12c8c31223a0ea27e29")
         supportFragmentManager.beginTransaction().replace(R.id.fragment_view, firstFragment)
             .commit()
     }
