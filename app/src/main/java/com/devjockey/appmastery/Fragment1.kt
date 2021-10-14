@@ -60,8 +60,8 @@ class Fragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        catLogId= param1.toString()
-        Log.e("context","catlog:$catLogId")
+        catLogId = param1.toString()
+        Log.e("context", "catlog:$catLogId")
         //Recycler View
         val layoutManager = GridLayoutManager(context, 2);
         recycler_view?.layoutManager = layoutManager
