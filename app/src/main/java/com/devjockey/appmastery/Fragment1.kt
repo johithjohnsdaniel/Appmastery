@@ -1,6 +1,5 @@
 package com.devjockey.appmastery
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,57 +9,63 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_1.*
 
-import kotlinx.android.synthetic.main.fragment_frag1.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.properties.Delegates
 
 
-class Frag1 : Fragment() {
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
+
+class Fragment1 : Fragment() {
     private lateinit var catLogId: String
-
-
     var resultData: List<Thumbnail> = ArrayList()
     lateinit var layoutManager: RecyclerView.LayoutManager
 
+
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-
-        // Inflates the custom fragment layout
-        return inflater.inflate(R.layout.fragment_frag1, container, false)
+        return inflater.inflate(R.layout.fragment_1, container, false)
     }
 
+    companion object {
+
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            Fragment1().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val data: Bundle? = arguments
-        if (data != null) {
-            val msg = data.getString("key")
-            if (msg != null) {
-                catLogId = msg
-                fragmentTransition()
-
-            }
-
-        }
-
-//Recycler View
+        catLogId= param1.toString()
+        Log.e("context","catlog:$catLogId")
+        //Recycler View
         val layoutManager = GridLayoutManager(context, 2);
-        recycler_view.layoutManager = layoutManager
-
-        //Default Catlog ID
-        catLogId = "5d52df0a8c31223a0ea27db1"
+        recycler_view?.layoutManager = layoutManager
         fragmentTransition()
-
     }
 
 
@@ -81,7 +86,7 @@ class Frag1 : Fragment() {
 
         } else {
 
-            Toast.makeText(context, "An error has occurred", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Please wait loading data ........", Toast.LENGTH_SHORT).show()
 
         }
     }
@@ -198,6 +203,5 @@ class Frag1 : Fragment() {
             }
         }
     }
-
 
 }
