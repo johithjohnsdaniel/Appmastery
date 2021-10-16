@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.devjockey.appmastery.Api.ApiClientLogin
+import com.devjockey.appmastery.LoginResponse.LoginRequest
+import com.devjockey.appmastery.LoginResponse.ResultLogin
 import com.devjockey.appmastery.databinding.ActivityMainBinding
 import com.google.common.hash.HashCode
 import com.google.common.hash.HashFunction
@@ -19,14 +22,11 @@ lateinit var binding: ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     companion object {
-
         lateinit var userToken: String
-        lateinit var ePassword: String
-        lateinit var password: String
-
-
     }
 
+    private lateinit var ePassword: String
+    private lateinit var password: String
     private lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,14 +59,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun encryptPass(): String {
 
-        val hashFunction: HashFunction = Hashing.sha256();
+        val hashFunction: HashFunction = Hashing.sha256()
         val hc: HashCode = hashFunction
             .newHasher()
             .putString(password, Charsets.UTF_8)
-            .hash();
-        val sha256: String = hc.toString()
-        return sha256
-
+            .hash()
+        return hc.toString()
 
     }
 
@@ -90,7 +88,6 @@ class MainActivity : AppCompatActivity() {
                     if (user_token != null) {
                         userToken = user_token
                     }
-
 
                     val intentRef = Intent(this@MainActivity, HomeActivity::class.java)
                     //Passing userToken

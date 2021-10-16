@@ -1,4 +1,4 @@
-package com.devjockey.appmastery;
+package com.devjockey.appmastery.Api;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -21,7 +21,6 @@ public class ApiClientLogin {
                 build();
 
         return retrofit;
-
 
     }
 

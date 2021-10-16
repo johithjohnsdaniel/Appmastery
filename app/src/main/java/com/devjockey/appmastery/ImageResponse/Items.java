@@ -1,4 +1,4 @@
-package com.devjockey.appmastery;
+package com.devjockey.appmastery.ImageResponse;
 
 import com.google.gson.annotations.SerializedName;
 

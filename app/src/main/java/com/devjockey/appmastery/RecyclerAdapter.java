@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
+import com.devjockey.appmastery.ImageResponse.Thumbnail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,13 +48,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.txt.setText(current);
 
         String img_url = itemsList.get(position).getThumbnail().getMedium();
-//set image
+        //set image
         Glide
                 .with(context)
                 .load(img_url)
                 .centerCrop()
                 .into(holder.img);
-
 
     }
 
@@ -66,7 +66,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         private ImageView img;
         private final TextView txt;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

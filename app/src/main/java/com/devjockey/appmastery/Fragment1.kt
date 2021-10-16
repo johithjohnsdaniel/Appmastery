@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.devjockey.appmastery.Api.ApiClientLogin
+import com.devjockey.appmastery.ImageResponse.ResultImage
+import com.devjockey.appmastery.ImageResponse.Thumbnail
 import kotlinx.android.synthetic.main.fragment_1.*
 
 import retrofit2.Call
@@ -33,7 +36,6 @@ class Fragment1 : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
-
         }
     }
 
@@ -59,111 +61,82 @@ class Fragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //CatLog Id
         catLogId = param1.toString()
-        Log.e("context", "catlog:$catLogId")
+        Log.e("context", "catLog:$catLogId")
+
         //Recycler View
-        val layoutManager = GridLayoutManager(context, 2);
+
+        val layoutManager = GridLayoutManager(context, 2)
         recycler_view?.layoutManager = layoutManager
+
+        //Fragment Transition
         fragmentTransition()
     }
 
 
     //fragment transition
     private fun fragmentTransition() {
+
+        //check ID
+
         val value = checkCatLogId()
-        if (value == 1) {
 
-            getData()
+        //ID Validation
+        idValidation(value)
+    }
 
-        } else if (value == 2) {
+    private fun idValidation(value: Int) {
+        when (value) {
+            1 -> {
+                getData("5d52df0a8c31223a0ea27db1")
+            }
+            2 -> {
+                getData("5d52df458c31223a0ea27dbb")
+            }
+            3 -> {
+                getData("5d52f12c8c31223a0ea27e29")
+            }
+            else -> {
+                Toast.makeText(context, "Please wait loading data ........", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    //loginId check
 
-            getData2()
+    private fun checkCatLogId(): Int {
 
-        } else if (value == 3) {
-
-            getData3()
-
-        } else {
-
-            Toast.makeText(context, "Please wait loading data ........", Toast.LENGTH_SHORT).show()
-
+        return when (catLogId) {
+            "5d52df0a8c31223a0ea27db1" -> {
+                1
+            }
+            "5d52df458c31223a0ea27dbb" -> {
+                2
+            }
+            "5d52f12c8c31223a0ea27e29" -> {
+                3
+            }
+            else -> {
+                4
+            }
         }
     }
 
-    private fun getData3() {
+    //getData
+    private fun getData(id: String) {
 
-        val call = ApiClientLogin.getLoginService().image3
+        val call = ApiClientLogin.getLoginService().getImage(id)
         call.enqueue(object : Callback<ResultImage?> {
             override fun onResponse(call: Call<ResultImage?>, response: Response<ResultImage?>) {
 
                 if (response.isSuccessful) {
-
-                    Log.e("context", "success");
+                    Log.e("context", "success")
                     Log.e("MainActivity",
                         "Success = " + response.body()!!.get_embedded().getItems())
                     resultData = response.body()!!.get_embedded().getItems()
 
                     val adapterRecycler = RecyclerAdapter(context, resultData)
                     recycler_view?.adapter = adapterRecycler
-
-                } else {
-                    Log.e("context", "Server Down");
-                }
-            }
-
-            override fun onFailure(call: Call<ResultImage?>, t: Throwable) {
-                Log.e("context", "Error");
-
-            }
-        })
-
-
-    }
-
-    private fun getData2() {
-
-        val call = ApiClientLogin.getLoginService().image2
-        call.enqueue(object : Callback<ResultImage?> {
-            override fun onResponse(call: Call<ResultImage?>, response: Response<ResultImage?>) {
-
-                if (response.isSuccessful) {
-                    Log.e("context", "success");
-                    Log.e("MainActivity",
-                        "Success = " + response.body()!!.get_embedded().getItems())
-                    resultData = response.body()!!.get_embedded().getItems()
-
-                    val adapterRecycler = RecyclerAdapter(context, resultData)
-                    recycler_view?.adapter = adapterRecycler;
-                } else {
-                    Log.e("context", "Server Down");
-                }
-            }
-
-            override fun onFailure(call: Call<ResultImage?>, t: Throwable) {
-                Log.e("context", "Error");
-
-            }
-        })
-
-
-    }
-
-
-    //getData
-    private fun getData() {
-
-        val call = ApiClientLogin.getLoginService().image
-        call.enqueue(object : Callback<ResultImage?> {
-            override fun onResponse(call: Call<ResultImage?>, response: Response<ResultImage?>) {
-
-                if (response.isSuccessful) {
-                    Log.e("context", "success");
-                    Log.e("MainActivity",
-                        "Success = " + response.body()!!.get_embedded().getItems())
-                    resultData = response.body()!!.get_embedded().getItems()
-
-                    val adapterRecycler = RecyclerAdapter(context, resultData)
-                    recycler_view?.adapter = adapterRecycler;
                 } else {
                     Log.e("context", "Server Down")
                 }
@@ -179,28 +152,6 @@ class Fragment1 : Fragment() {
 
     }
 
-    //loginId check
 
-    private fun checkCatLogId(): Int {
-
-        return when (catLogId) {
-            "5d52df0a8c31223a0ea27db1" -> {
-
-                1;
-
-            }
-            "5d52df458c31223a0ea27dbb" -> {
-                2;
-
-            }
-            "5d52f12c8c31223a0ea27e29" -> {
-                3;
-
-            }
-            else -> {
-                4
-            }
-        }
-    }
 
 }

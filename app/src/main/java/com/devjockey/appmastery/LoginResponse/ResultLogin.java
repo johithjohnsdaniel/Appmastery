@@ -1,4 +1,4 @@
-package com.devjockey.appmastery;
+package com.devjockey.appmastery.LoginResponse;
 
 public class ResultLogin {
 

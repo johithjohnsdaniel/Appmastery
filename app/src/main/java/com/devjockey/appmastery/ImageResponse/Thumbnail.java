@@ -1,4 +1,4 @@
-package com.devjockey.appmastery;
+package com.devjockey.appmastery.ImageResponse;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -20,7 +20,6 @@ public class Thumbnail {
     public void setName(String name) {
         this.name = name;
     }
-
 
     public void setThumbnail(Model thumbnail) {
         this.thumbnail = thumbnail;
