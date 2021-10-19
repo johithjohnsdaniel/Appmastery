@@ -82,44 +82,38 @@ class Fragment1 : Fragment() {
 
         val value = checkCatLogId()
 
-        //ID Validation
-        idValidation(value)
+        //NXT STEP
+
+        if(value){
+            getData()
+        }
+        else
+        {
+            Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show()
+        }
+
+
     }
 
-    private fun idValidation(value: Int) {
-        when (value) {
-            1 -> {
-                getData("5d52df0a8c31223a0ea27db1")
-            }
-            2 -> {
-                getData("5d52df458c31223a0ea27dbb")
-            }
-            3 -> {
-                getData("5d52f12c8c31223a0ea27e29")
-            }
-            else -> {
-                Toast.makeText(context, "Please wait loading data ........", Toast.LENGTH_SHORT).show()
-            }
-        }
+    private fun getData() {
+
+        getData(catLogId)
+
     }
     //loginId check
 
-    private fun checkCatLogId(): Int {
+    private fun checkCatLogId(): Boolean {
 
-        return when (catLogId) {
-            "5d52df0a8c31223a0ea27db1" -> {
-                1
-            }
-            "5d52df458c31223a0ea27dbb" -> {
-                2
-            }
-            "5d52f12c8c31223a0ea27e29" -> {
-                3
-            }
-            else -> {
-                4
-            }
+
+        if(catLogId!=null){
+
+            return true
+
+        }else
+        {
+            return false
         }
+
     }
 
     //getData

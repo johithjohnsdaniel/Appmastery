@@ -13,9 +13,17 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
+
+    //CatLog IDs
+    private val catLogId1: String = "5d52df0a8c31223a0ea27db1"
+    private val catLogId2: String = "5d52df458c31223a0ea27dbb"
+    private val catLogId3: String = "5d52f12c8c31223a0ea27e29"
+
+    //Fragments
     private lateinit var firstFragment: Fragment1
     private lateinit var secondFragment: Fragment1
     private lateinit var thirdFragment: Fragment1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -33,9 +41,9 @@ class HomeActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
     }
 
     private fun setFragment() {
-        firstFragment = Fragment1.newInstance("5d52df0a8c31223a0ea27db1")
-        secondFragment = Fragment1.newInstance("5d52df458c31223a0ea27dbb")
-        thirdFragment = Fragment1.newInstance("5d52f12c8c31223a0ea27e29")
+        firstFragment = Fragment1.newInstance(catLogId1)
+        secondFragment = Fragment1.newInstance(catLogId2)
+        thirdFragment = Fragment1.newInstance(catLogId3)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_view, firstFragment)
             .commit()
     }
