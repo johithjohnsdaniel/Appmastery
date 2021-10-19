@@ -22,7 +22,6 @@ import retrofit2.Response
 private const val ARG_PARAM1 = "param1"
 
 
-
 class Fragment1 : Fragment() {
     private lateinit var catLogId: String
     var resultData: List<Thumbnail> = ArrayList()
@@ -82,13 +81,11 @@ class Fragment1 : Fragment() {
 
         val value = checkCatLogId()
 
-        //NXT STEP
+        //Fetch Data
 
-        if(value){
+        if (value) {
             getData()
-        }
-        else
-        {
+        } else {
             Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_SHORT).show()
         }
 
@@ -100,17 +97,17 @@ class Fragment1 : Fragment() {
         getData(catLogId)
 
     }
+
     //loginId check
 
     private fun checkCatLogId(): Boolean {
 
 
-        if(catLogId!=null){
+        if (catLogId != null) {
 
             return true
 
-        }else
-        {
+        } else {
             return false
         }
 
@@ -145,7 +142,6 @@ class Fragment1 : Fragment() {
 
 
     }
-
 
 
 }
